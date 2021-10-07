@@ -20,7 +20,7 @@ pipeline {
     	   	     def scannerHome = tool 'SonarScannerAirbus';
     	             withSonarQubeEnv('Sonar_Jenkins') { 
 		       sh "${tool("SonarScannerAirbus")}/bin/sonar-scanner \
-		       -Dsonar.projectKey=anjalisasi_Task"
+		       -Dsonar.projectKey=anjalisasi_ELKStack"
    	             }
                  }
               }
