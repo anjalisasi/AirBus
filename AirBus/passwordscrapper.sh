@@ -1,6 +1,6 @@
 
 
-vault=`grep server_name /home/ansible/AirBus/inventory/group_vars/prod/vars.yml`
+vault=`grep server_name /home/ansible/Final/ELKStack/AirBus/inventory/group_vars/prod/vars.yml`
 vault=`echo $vault | awk -F': ' '{print $NF}'`
 elasticpass=`ssh ansible@$vault cat /home/ansible/*pass | grep elastic`
 elasticpass=`echo $elasticpass | awk -F' ' '{print $NF}'`
@@ -8,7 +8,7 @@ sleep 2
 
 kibanapass=`ssh ansible@$vault cat /home/ansible/*pass | grep kibana | grep -v ystem`
 kibanapass=`echo $kibanapass | awk -F' ' '{print $NF}'`
-cd /home/ansible/AirBus/inventory/group_vars/prod/
+cd /home/ansible/Final/ELKStack/AirBus/inventory/group_vars/prod
 
 sleep 2
 awk '!/elastic_password/' vars.yml > tmpfile && mv tmpfile vars.yml

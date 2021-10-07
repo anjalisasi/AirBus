@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #AirBus Task 
-#Pyuthon script to stress test ES 
+#Python script to stress test ES 
 
 
 import signal
