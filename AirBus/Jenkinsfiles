@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+    environment {
+        // comment added
+         APPLICATION = 'app'
+         ENVIRONMENT = 'dev'
+         MAINTAINER_NAME = 'jenkins'
+         MAINTAINER_EMAIL = 'jenkins@email.com'
+    }
+    stages {
+         stage('Build') {
+             steps {
+                 // cloning repo
+                 checkout scm
+             }
+         }
+	 stage('SonarQube analysis') {
+		 steps {
+	             script {
+    	   	     def scannerHome = tool 'SonarScannerAirbus';
+    	             withSonarQubeEnv('Sonar_Jenkins') { 
+		       sh "${tool("SonarScannerAirbus")}/bin/sonar-scanner \
+		       -Dsonar.projectKey=anjalisasi_Task"
+   	             }
+                 }
+              }
+	   } 
+     
+         stage('Deploy and Test') {
+             steps {
+                 script {
+                     sshagent(credentials : ['ansible_credentials']) {
+			sh 'ssh -t -t ansible@172.31.107.65 -o StrictHostKeyChecking=no "cd /home/ansible/clone/Task/AirBus && ./ELK_BUILD_TEST.sh"'
+                    }
+                 }
+             }
+         }
+    }
+}

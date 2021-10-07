@@ -1,0 +1,26 @@
+---
+ - hosts: all
+ 
+   tasks:
+           
+    - name: repos of java
+      become: yes 
+      apt_repository: repo='ppa:openjdk-r/ppa' state=present
+
+    - name: install openjdk 1.8
+      become: yes
+      package: name=openjdk-11-jdk state=latest
+
+    - name: ensure the jenkins apt repository key is installed
+      become: yes
+      apt_key: url=https://pkg.jenkins.io/debian-stable/jenkins.io.key state=present
+
+    - name: ensure the repository is configured
+      become: yes
+      apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/' state=present
+
+    - name: ensure jenkins is installed
+      become: yes
+      apt: name=jenkins update_cache=yes state=latest force=yes
+
+

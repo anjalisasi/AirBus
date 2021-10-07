@@ -1,0 +1,49 @@
+
+- name: Create elastic search volume
+  docker_volume:
+    name: esdata
+    driver: local
+
+- name: Start elastic search container
+  docker_container:
+    name: "{{ elasticsearch_hostname }}"
+    image: "{{ elasticsearch_image }}"
+    env:
+      discovery.type: "single-node"
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      xpack.security.enabled: "true"
+      xpack.monitoring.collection.enabled: "true"
+    volumes:
+    - "esdata:/usr/share/elasticsearch/data"
+    ports:
+    - 2222:9200
+    - 3000:9300
+    ulimits:
+    - nofile:65535:65535
+    state: started
+    log_driver: "{{ log_driver }}"
+    log_options:
+      max-size: "{{ log_max_size }}"
+      max-file: "{{ log_max_file }}"
+
+- name: Pause for 20 s for ES to come up 
+  pause:
+    seconds: 20
+
+
+- name: Generate passwords
+  shell: docker exec -it {{ elasticsearch_hostname }}  elasticsearch-setup-passwords auto -b \
+         | grep PASSWORD | grep -e kibana -e elastic | awk '{print $2 " " $4}' 
+  register: rawpass
+
+- name: remove old secret file and recreate 
+  shell: |
+         rm -rf  /home/ansible/elastic_pass
+         touch  /home/ansible/elastic_pass 
+
+         
+- name: Register passwords
+  shell: echo {{ item }} >> /home/ansible/elastic_pass
+  with_items: "{{ rawpass.stdout_lines }}"
+
+

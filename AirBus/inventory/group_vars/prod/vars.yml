@@ -1,0 +1,18 @@
+
+server_name: 172.31.97.201
+network_name: esnet
+
+
+elasticsearch_image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+elasticsearch_hostname: es01
+elasticsearch_conf_dir: /usr/share/elasticsearch
+
+kibana_image: docker.elastic.co/kibana/kibana:7.10.1
+kibana_hostname: ki01
+
+logstash_image: docker.elastic.co/logstash/logstash:7.10.1
+logstash_hostname: lo01
+logstash_conf_dir: /usr/share/logstash
+
+elastic_password: "lX2wwviLW4R1ZuscF5ku"
+kibana_password: "yM9pgFlRw42iwo0XgNig"
