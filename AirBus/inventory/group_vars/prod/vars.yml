@@ -14,5 +14,5 @@ logstash_image: docker.elastic.co/logstash/logstash:7.10.1
 logstash_hostname: lo01
 logstash_conf_dir: /usr/share/logstash
 
-elastic_password: "MpddTFXyPWHRvIhqtZUJ"
-kibana_password: "1IJo75k2EeMOhwQMiA1d"
+elastic_password: "F6n5RUWQ1BCASD35KgzX"
+kibana_password: "dNNIdByNy0zeW78GD32j"
