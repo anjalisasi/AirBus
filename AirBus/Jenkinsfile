@@ -29,7 +29,7 @@ pipeline {
              steps {
                  script {
                      sshagent(credentials : ['ansible_credentials']) {
-                        sh './de.sh' 
+                        sh 'cd /home/ansible ./de.sh' 
 			sh 'ssh -t -t ansible@172.31.107.65 -o StrictHostKeyChecking=no "cd /home/ansible/Final/ELKStack/AirBus && ./ELK_BUILD_TEST.sh"'
                     }
                  }
