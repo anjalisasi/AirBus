@@ -13,5 +13,5 @@ ansible-playbook -i inventory elk.yml --tags kibana
 
 ansible-playbook -i inventory elk.yml --tags logstash
 
-#ansible-playbook -i inventory elk.yml --tags nginx
+
 
