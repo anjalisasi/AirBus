@@ -3,7 +3,6 @@ pipeline {
     environment {
         // comment added
          APPLICATION = 'ELK'
-         ENVIRONMENT = 'prod'
          MAINTAINER_NAME = 'jenkins'
          MAINTAINER_EMAIL = 'jenkins@email.com'
     }
