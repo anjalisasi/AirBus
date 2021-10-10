@@ -7,7 +7,7 @@
       become: yes 
       apt_repository: repo='ppa:openjdk-r/ppa' state=present
 
-    - name: install openjdk 1.8
+    - name: install openjdk 11
       become: yes
       package: name=openjdk-11-jdk state=latest
 
